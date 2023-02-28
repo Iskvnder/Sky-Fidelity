@@ -24,8 +24,10 @@ public class PersonController : MonoBehaviour {
 
 
     void Start() {
-        characterController = GetComponent<CharacterController>();
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        characterController = GetComponent<CharacterController>();
         cam = Camera.main;
     }
 
