@@ -35,29 +35,36 @@ public class Shooting : MonoBehaviour {
             Ray cameraTargetRay = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
             RaycastHit cameraHitInfo;
             GameObject cameraTargetObject;
-            Vector3 cameraHitPoint;
+            Vector3 cameraHitPoint = Vector3.zero;
 
-            Physics.Raycast(cameraTargetRay, out cameraHitInfo);
-            cameraHitPoint = cameraHitInfo.point;
-            cameraTargetObject = cameraHitInfo.collider.gameObject;
+            if (Physics.Raycast(cameraTargetRay, out cameraHitInfo, range)) {
+                cameraHitPoint = cameraHitInfo.point;
+                cameraTargetObject = cameraHitInfo.collider.gameObject;
 
-            Debug.Log("Hit object: " + cameraTargetObject.name);
-            Debug.Log("Hit point: " + cameraHitPoint);
+                Debug.Log("Hit object: " + cameraTargetObject.name);
+                Debug.Log("Hit point: " + cameraHitPoint);
+            }
+            
 
             Ray playerTargetRay = new Ray(gameObject.transform.position, cameraHitInfo.point - gameObject.transform.position);
             RaycastHit playerHitInfo;
             GameObject playerTargetObject;
-            Vector3 playerHitPoint;
+            Vector3 playerHitPoint = Vector3.zero;
 
-            Physics.Raycast(playerTargetRay, out playerHitInfo);
-            playerHitPoint = playerHitInfo.point;
-            playerTargetObject = playerHitInfo.collider.gameObject;
+            if (Physics.Raycast(playerTargetRay, out playerHitInfo, range)) {
+                playerHitPoint = playerHitInfo.point;
+                playerTargetObject = playerHitInfo.collider.gameObject;
 
-            Debug.Log("Hit object2: " + playerTargetObject.name);
-            Debug.Log("Hit point2: " + playerHitPoint);
+                Debug.Log("Hit object2: " + playerTargetObject.name);
+                Debug.Log("Hit point2: " + playerHitPoint);
+            }
 
             if (cameraHitPoint == playerHitPoint) {
                 Debug.Log("I can hit!");
+            }
+
+            if (debrisPrefab != null) {
+                Instantiate(debrisPrefab, playerHitPoint, Quaternion.identity);
             }
         }
     }
