@@ -31,19 +31,33 @@ public class Shooting : MonoBehaviour {
 
         if (Input.GetButton("Fire1") && cooldownRemaining <= 0) {
             cooldownRemaining = cooldown;
-            Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-            RaycastHit hitInfo;
 
-            if (Physics.Raycast(ray, out hitInfo, range)) {
-                Vector3 hitPoint = hitInfo.point;
-                GameObject go = hitInfo.collider.gameObject;
+            Ray cameraTargetRay = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+            RaycastHit cameraHitInfo;
+            GameObject cameraTargetObject;
+            Vector3 cameraHitPoint;
 
-                Debug.Log("Hit object " + go.name);
-                Debug.Log("Hit point: " + hitPoint);
+            Physics.Raycast(cameraTargetRay, out cameraHitInfo);
+            cameraHitPoint = cameraHitInfo.point;
+            cameraTargetObject = cameraHitInfo.collider.gameObject;
 
-                if (debrisPrefab != null) {
-                    Instantiate(debrisPrefab, hitPoint, Quaternion.identity);
-                }
+            Debug.Log("Hit object: " + cameraTargetObject.name);
+            Debug.Log("Hit point: " + cameraHitPoint);
+
+            Ray playerTargetRay = new Ray(gameObject.transform.position, cameraHitInfo.point - gameObject.transform.position);
+            RaycastHit playerHitInfo;
+            GameObject playerTargetObject;
+            Vector3 playerHitPoint;
+
+            Physics.Raycast(playerTargetRay, out playerHitInfo);
+            playerHitPoint = playerHitInfo.point;
+            playerTargetObject = playerHitInfo.collider.gameObject;
+
+            Debug.Log("Hit object2: " + playerTargetObject.name);
+            Debug.Log("Hit point2: " + playerHitPoint);
+
+            if (cameraHitPoint == playerHitPoint) {
+                Debug.Log("I can hit!");
             }
         }
     }
