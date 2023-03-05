@@ -14,15 +14,8 @@ public class Shooting : MonoBehaviour {
     private float cooldownRemaining = 0;
     private float range = 100f;
 
-    private Ray cameraTargetRay;
     private RaycastHit cameraHitInfo;
-    private GameObject cameraHitObject;
-    private Vector3 cameraHitPoint = Vector3.zero;
-
-    private Ray playerTargetRay;
     private RaycastHit playerHitInfo;
-    private GameObject playerHitObject;
-    private Vector3 playerHitPoint = Vector3.zero;
 
     void Start() {
         cam = Camera.main;
@@ -34,27 +27,23 @@ public class Shooting : MonoBehaviour {
         if (Input.GetButton("Fire1") && cooldownRemaining <= 0) {
             cooldownRemaining = cooldown;
 
-            cameraTargetRay = new Ray(cam.transform.position, cam.transform.forward); // Ray path
+            cameraHitInfo = CreateRay(cam.transform.position, cam.transform.forward);
+            playerHitInfo = CreateRay(gameObject.transform.position, cameraHitInfo.point - gameObject.transform.position);
 
-            if (Physics.Raycast(cameraTargetRay, out cameraHitInfo, range)) { // raycast ray in this range, save info
-                cameraHitPoint = cameraHitInfo.point;
-                cameraHitObject = cameraHitInfo.collider.gameObject;
-            }
-            
-            playerTargetRay = new Ray(gameObject.transform.position, cameraHitInfo.point - gameObject.transform.position); // Ray second path
-            
-            if (Physics.Raycast(playerTargetRay, out playerHitInfo, range)) { // raycast ray in this range, save info
-                playerHitPoint = playerHitInfo.point;
-                playerHitObject = playerHitInfo.collider.gameObject;
-            }
-
-            if (cameraHitPoint == playerHitPoint) {
+            if (cameraHitInfo.point == playerHitInfo.point) {
                 Debug.Log("I can hit!");
             }
 
             if (debrisPrefab != null) { // Shooting Particle
-                Instantiate(debrisPrefab, playerHitPoint, Quaternion.identity);
+                Instantiate(debrisPrefab, playerHitInfo.point, Quaternion.identity);
             }
         }
+    }
+
+    private RaycastHit CreateRay(Vector3 position, Vector3 direction) {
+        Ray targetRay = new Ray(position, direction);
+        RaycastHit hitInfo;
+        Physics.Raycast(targetRay, out hitInfo, range);
+        return hitInfo;
     }
 }
