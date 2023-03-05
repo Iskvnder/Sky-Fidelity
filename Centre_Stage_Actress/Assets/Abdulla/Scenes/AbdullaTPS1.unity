@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 508702847}
   - component: {fileID: 508702846}
   - component: {fileID: 508702845}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LevelPrototype
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -536,6 +536,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -609,6 +610,23 @@ Transform:
   m_Father: {fileID: 1868877002}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 028c20cfe25dd44409b1a9b216fe2522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseSensivity: 2
+  target: {fileID: 1868877002}
+  obstacles:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &1118237063
 GameObject:
   m_ObjectHideFlags: 0
@@ -1226,6 +1244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a23219f70d914a4bac8f545f1550be6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aim: {fileID: 1411306234}
   bulletPrefab: {fileID: 7609485484541133699, guid: 3a0cec4d239a34d4bb5f0e01299946c4, type: 3}
   debrisPrefab: {fileID: 3499517983260057395, guid: 7614f7185e37da14787f8313dfa9ca3e, type: 3}
 --- !u!43 &2061122230

@@ -6,8 +6,6 @@ public class CameraController : MonoBehaviour {
 
     public float mouseSensivity = 2f;
 
-    public GameObject sphere1;
-
     [SerializeField]
     private Transform target;
     [SerializeField]
