@@ -11,14 +11,16 @@ public class Shooting : MonoBehaviour {
     private GameObject bulletPrefab;
     [SerializeField]
     private GameObject debrisPrefab;
+    [SerializeField]
+    private Transform debugTransform;
 
-    private Camera cam;
     private float cooldown = 0.2f;
     private float cooldownRemaining = 0;
     private float range = 100f;
-
-    private RaycastHit cameraHitInfo;
+    private Camera cam;
     private RaycastHit playerHitInfo;
+    private Vector2 screenCenterPoint;
+
 
     void Start() {
         cam = Camera.main;
@@ -26,29 +28,26 @@ public class Shooting : MonoBehaviour {
 
     void Update() {
         cooldownRemaining -= Time.deltaTime;
+        screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
 
-        cameraHitInfo = CreateRay(cam.transform.position + cam.transform.forward * 0.2f, cam.transform.forward);
-        playerHitInfo = CreateRay(gameObject.transform.position, cameraHitInfo.point - gameObject.transform.position);
-        
-        if (playerHitInfo.collider != null && playerHitInfo.collider.gameObject.tag == "Enemy") {
-            aim.color = Color.green;
-        } else {
-            aim.color = Color.red;
-        }
+        if (Input.GetButton("Fire2")) {
+            aim.enabled = true;
 
-        if (Input.GetButton("Fire1") && cooldownRemaining <= 0) {
-            cooldownRemaining = cooldown;
+            if (Input.GetButton("Fire1") && cooldownRemaining <= 0) {
+                cooldownRemaining = cooldown;
 
-            if (debrisPrefab != null) { // Shooting Particle
-                Instantiate(debrisPrefab, playerHitInfo.point, Quaternion.identity);
+                Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
+                if (Physics.Raycast(ray, out playerHitInfo, range)) {
+                    debugTransform.position = playerHitInfo.point;
+                }
+
+                if (debrisPrefab != null) { // Shooting Particle
+                    Instantiate(debrisPrefab, playerHitInfo.point, Quaternion.identity);
+                }
             }
+        } else {
+            aim.enabled = false;
         }
-    }
 
-    private RaycastHit CreateRay(Vector3 position, Vector3 direction) {
-        Ray targetRay = new Ray(position, direction);
-        RaycastHit hitInfo;
-        Physics.Raycast(targetRay, out hitInfo, range);
-        return hitInfo;
     }
 }
