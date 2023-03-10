@@ -4,18 +4,12 @@ using UnityEngine;
 
 public class PersonController : MonoBehaviour {
 
-    public float mouseSensivity = 2f;
-
-    [SerializeField]
-    private float movementSpeed = 2.5f;
+    public Transform cam;
 
     private CharacterController characterController;
-    private float characterRotationLeftRight;
-    private float forwardSpeed;
-    private float sideSpeed;
-    private float jumpSpeed = 2.5f;
-    private Vector3 speed;
-    private float verticalVelocity = 0;
+    private float speed = 1f;
+    private float turnSmoothTime = 0.1f;
+    private float turnSmoothVelocity;
 
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
@@ -30,20 +24,18 @@ public class PersonController : MonoBehaviour {
     }
 
     private void MovingCharacter() {
+        float horizontal = Input.GetAxis("Horizontal"); // A, D
+        float vertical = Input.GetAxis("Vertical"); // W, S
 
-        characterRotationLeftRight = Input.GetAxis("Mouse X") * mouseSensivity;
-        transform.Rotate(0, characterRotationLeftRight, 0); //Rotate whole character with camera view.
+        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
-        forwardSpeed = Input.GetAxis("Vertical") * movementSpeed; // W, S
-        sideSpeed = Input.GetAxis("Horizontal") * movementSpeed; // A, D
+        if (direction.magnitude >= 0.1f) {
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
-        verticalVelocity += Physics.gravity.y * Time.deltaTime;
-        if (characterController.isGrounded && Input.GetButtonDown("Jump")) { // SPACE
-            verticalVelocity = jumpSpeed;
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            characterController.Move(moveDir * speed * Time.deltaTime);
         }
-
-        speed = new Vector3(sideSpeed, verticalVelocity, forwardSpeed);
-        speed = transform.rotation * speed; //  Moving towards camera view.
-        characterController.Move(speed * Time.deltaTime);
     }
 }
