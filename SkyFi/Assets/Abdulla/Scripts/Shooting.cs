@@ -8,11 +8,13 @@ public class Shooting : MonoBehaviour {
     public Image aim;
 
     [SerializeField]
-    private GameObject bulletPrefab;
-    [SerializeField]
     private GameObject debrisPrefab;
     [SerializeField]
     private Transform debugTransform;
+    [SerializeField]
+    private GameObject mainCamera;
+    [SerializeField]
+    private GameObject aimCamera;
 
     private float cooldown = 0.2f;
     private float cooldownRemaining = 0;
@@ -27,11 +29,28 @@ public class Shooting : MonoBehaviour {
     }
 
     void Update() {
-        cooldownRemaining -= Time.deltaTime;
+        Aim();
+        Shoot();
+    }
+
+    void Aim() {
         screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
 
         if (Input.GetButton("Fire2")) {
             aim.enabled = true;
+            mainCamera.SetActive(false);
+            aimCamera.SetActive(true);
+        } else {
+            aim.enabled = false;
+            mainCamera.SetActive(true);
+            aimCamera.SetActive(false);
+        }
+    }
+
+    void Shoot() {
+        cooldownRemaining -= Time.deltaTime;
+
+        if (Input.GetButton("Fire2")) {
 
             if (Input.GetButton("Fire1") && cooldownRemaining <= 0) {
                 cooldownRemaining = cooldown;
@@ -45,9 +64,6 @@ public class Shooting : MonoBehaviour {
                     Instantiate(debrisPrefab, playerHitInfo.point, Quaternion.identity);
                 }
             }
-        } else {
-            aim.enabled = false;
-        }
-
+        } 
     }
 }

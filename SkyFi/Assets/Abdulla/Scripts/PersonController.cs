@@ -4,12 +4,23 @@ using UnityEngine;
 
 public class PersonController : MonoBehaviour {
 
-    public Transform cam;
+    public float mouseSensivity = 2f;
+    public Transform aim;
 
     private CharacterController characterController;
-    private float speed = 1f;
-    private float turnSmoothTime = 0.1f;
-    private float turnSmoothVelocity;
+
+    private float movementSpeed = 2.5f;
+    private float gravity = -9.81f;
+    private float jumpHeight = 0.5f;
+
+    private float characterRotationLeftRight;
+    private float characterRotationUpDown;
+    private float upDownRange = 30.0f;
+
+    private float vertical;
+    private float horizontal;
+    private float velocityY = 0;
+    private Vector3 direction;
 
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
@@ -24,18 +35,39 @@ public class PersonController : MonoBehaviour {
     }
 
     private void MovingCharacter() {
-        float horizontal = Input.GetAxis("Horizontal"); // A, D
-        float vertical = Input.GetAxis("Vertical"); // W, S
+        vertical = Input.GetAxis("Vertical") * movementSpeed; // W, S
+        horizontal = Input.GetAxis("Horizontal") * movementSpeed; // A, D
 
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
-
-        if (direction.magnitude >= 0.1f) {
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-
-            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            characterController.Move(moveDir * speed * Time.deltaTime);
+        if (Input.GetKey(KeyCode.LeftShift)) {
+            movementSpeed = 2.2f;
+        } else {
+            movementSpeed = 1.5f;
         }
+
+        if (characterController.isGrounded && velocityY < 0) {
+            velocityY = -2f;
+        }
+
+        characterRotationLeftRight = Input.GetAxis("Mouse X") * mouseSensivity;
+        transform.Rotate(0, characterRotationLeftRight, 0); //Rotate whole character with camera view.
+
+        characterRotationUpDown -= Input.GetAxis("Mouse Y") * mouseSensivity;
+        characterRotationUpDown = Mathf.Clamp(characterRotationUpDown, -upDownRange, upDownRange);
+        aim.localRotation = Quaternion.Euler(characterRotationUpDown, 0, 0);
+
+        velocityY += gravity * Time.deltaTime;
+
+        if (Input.GetButtonDown("Jump") && characterController.isGrounded) {
+            velocityY = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+
+
+        direction = new Vector3(horizontal, velocityY, vertical);
+
+        direction = transform.rotation * direction; //  Moving towards camera view.
+        characterController.Move(direction * Time.deltaTime);
+
+
     }
+
 }
