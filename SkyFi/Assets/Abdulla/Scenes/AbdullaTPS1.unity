@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -626,7 +626,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 213f23846cb50464c9446d393d9a8de7, type: 2}
+  - {fileID: 2100000, guid: 4717b199010ca4cb3a8a7a465ec457d2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1011,14 +1011,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3384a058c71317b49bb999602ff8ee6e, type: 3}
+  m_Script: {fileID: 11500000, guid: ae550f04de803e54fbfe73c959bb3f69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensivity: 2
-  target: {fileID: 1868877002}
+  target: {fileID: 0}
   obstacles:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2193,11 +2193,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1868877000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ceda7dd04b0db54f83ddc326da16bf3, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a23219f70d914a4bac8f545f1550be6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   aim: {fileID: 1411306234}
-  debrisPrefab: {fileID: 3499517983260057395, guid: a93a1bdce94bbdd48a796a476347cc92, type: 3}
+  debrisPrefab: {fileID: 3499517983260057395, guid: 7614f7185e37da14787f8313dfa9ca3e, type: 3}
   debugTransform: {fileID: 1005811148}
   mainCamera: {fileID: 1739716189}
   aimCamera: {fileID: 1691467143}
@@ -2210,11 +2210,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1868877000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce19cff3402a58140886e928961de0d9, type: 3}
+  m_Script: {fileID: 11500000, guid: 4743d5dbd0095644d8d942f84695cfcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensivity: 2
-  aim: {fileID: 1691467145}
+  aim: {fileID: 437449458}
 --- !u!43 &2061122230
 Mesh:
   m_ObjectHideFlags: 0

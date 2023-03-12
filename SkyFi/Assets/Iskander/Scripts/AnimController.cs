@@ -6,9 +6,8 @@ public class AnimController : MonoBehaviour
 {
     private Animator playerAnimator;
     private string[] animationsArray = {"isWalkF", "isWalkB", "isWalkL", "isWalkR", 
-    "isWalkFL", "isWalkFR", "isWalkBL", "isWalkBR", "isAim", "isAimF", "isAimL", "isAimR"};
+    "isWalkFL", "isWalkFR", "isWalkBL", "isWalkBR", "isAim", "isAimF", "isAimL", "isAimR", "isAimB"};
 
-    private bool battleOn = false;
 
     void Start()
     {
@@ -38,6 +37,7 @@ public class AnimController : MonoBehaviour
         bool rmbForwardPress = (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.Mouse1));
         bool rmbLeftPress = (Input.GetKey(KeyCode.Mouse1) && Input.GetKey(KeyCode.A));
         bool rmbRightPress = (Input.GetKey(KeyCode.Mouse1) && Input.GetKey(KeyCode.D));
+        bool rmbBackPress = (Input.GetKey(KeyCode.Mouse1) && Input.GetKey(KeyCode.S));
 
 
             if(forwardPress){setAnimation(0);}
@@ -78,6 +78,9 @@ public class AnimController : MonoBehaviour
 
             if(rmbRightPress){setAnimation(11); resetAnimation(3);}
             if(!rmbRightPress){resetAnimation(11);}
+
+            if(rmbBackPress){setAnimation(12); resetAnimation(1);}
+            if(!rmbBackPress){resetAnimation(12);}
         
 
     }

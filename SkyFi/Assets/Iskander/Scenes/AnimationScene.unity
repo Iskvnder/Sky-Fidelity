@@ -123,6 +123,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &94950602
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 94950603}
+  m_Layer: 0
+  m_Name: Aim
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &94950603
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94950602}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.5, y: 4.3599997, z: -0.722}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 761154536}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &761154535
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,8 +163,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 761154536}
-  - component: {fileID: 761154537}
   - component: {fileID: 761154538}
+  - component: {fileID: 761154539}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -155,23 +186,10 @@ Transform:
   m_Children:
   - {fileID: 7440044895508681802}
   - {fileID: 1313811106}
+  - {fileID: 94950603}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &761154537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 761154535}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4743d5dbd0095644d8d942f84695cfcc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mouseSensivity: 2
-  movementSpeed: 2.5
 --- !u!143 &761154538
 CharacterController:
   m_ObjectHideFlags: 0
@@ -190,6 +208,20 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &761154539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 761154535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4743d5dbd0095644d8d942f84695cfcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseSensivity: 2
+  aim: {fileID: 94950603}
 --- !u!1 &1043853356
 GameObject:
   m_ObjectHideFlags: 0
@@ -4048,7 +4080,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196671ccd6b3e574480a95ab073fbbc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAnimator: {fileID: 7785467861374373617}
 --- !u!137 &7866836746111651869
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
