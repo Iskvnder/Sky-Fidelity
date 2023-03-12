@@ -2214,7 +2214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensivity: 2
-  aim: {fileID: 437449458}
+  aim: {fileID: 1691467145}
 --- !u!43 &2061122230
 Mesh:
   m_ObjectHideFlags: 0
