@@ -6,7 +6,8 @@ public class AnimController : MonoBehaviour
 {
     private Animator playerAnimator;
     private string[] animationsArray = {"isWalkF", "isWalkB", "isWalkL", "isWalkR", 
-    "isWalkFL", "isWalkFR", "isWalkBL", "isWalkBR", "isAim", "isAimF", "isAimL", "isAimR", "isAimB"};
+    "isWalkFL", "isWalkFR", "isWalkBL", "isWalkBR", "isAim", "isAimF", "isAimL", "isAimR", "isAimB", 
+    "isRunF", "isRunB", "isRunFL", "isRunFR"};
 
 
     void Start()
@@ -23,6 +24,7 @@ public class AnimController : MonoBehaviour
 
     void animPlay(){
 
+        //Movement Keys
         bool forwardPress = Input.GetKey(KeyCode.W);
         bool backwardPress = Input.GetKey(KeyCode.S);
         bool leftPress = Input.GetKey(KeyCode.A);
@@ -32,14 +34,20 @@ public class AnimController : MonoBehaviour
         bool backwardLeftPress = (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A));
         bool backwardRightPress = (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D));
 
-        
+        //Aim Keys
         bool rmbPress = Input.GetKey(KeyCode.Mouse1);
         bool rmbForwardPress = (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.Mouse1));
         bool rmbLeftPress = (Input.GetKey(KeyCode.Mouse1) && Input.GetKey(KeyCode.A));
         bool rmbRightPress = (Input.GetKey(KeyCode.Mouse1) && Input.GetKey(KeyCode.D));
         bool rmbBackPress = (Input.GetKey(KeyCode.Mouse1) && Input.GetKey(KeyCode.S));
 
+        //Run Keys
+        bool runForwardPress = (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift));
+        bool runBackwardPress = (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.LeftShift));
+        bool runForwardLeftPress = (forwardLeftPress && Input.GetKey(KeyCode.LeftShift));
+        bool runForwardRightPress = (forwardRightPress && Input.GetKey(KeyCode.LeftShift));
 
+            //Movement Animations
             if(forwardPress){setAnimation(0);}
             if(!forwardPress){resetAnimation(0);}
 
@@ -65,11 +73,10 @@ public class AnimController : MonoBehaviour
             if(!backwardRightPress){resetAnimation(7);}
 
         
-
+            //Aim Animations
             if(rmbPress){setAnimation(8);}
             if(!rmbPress){resetAnimation(8);}
 
-       
             if(rmbForwardPress){setAnimation(9); resetAnimation(0);}
             if(!rmbForwardPress){resetAnimation(9);}
 
@@ -81,6 +88,19 @@ public class AnimController : MonoBehaviour
 
             if(rmbBackPress){setAnimation(12); resetAnimation(1);}
             if(!rmbBackPress){resetAnimation(12);}
+
+            //Running Animations
+            if(runForwardPress){setAnimation(13); resetAnimation(0);}
+            if(!runForwardPress){resetAnimation(13);}
+
+            if(runBackwardPress){setAnimation(14); resetAnimation(1);}
+            if(!runBackwardPress){resetAnimation(14);}
+
+            if(runForwardLeftPress){setAnimation(15); resetAnimation(13); resetAnimation(4);}
+            if(!runForwardLeftPress){resetAnimation(15);}
+
+            if(runForwardRightPress){setAnimation(16); resetAnimation(13); resetAnimation(5);}
+            if(!runForwardRightPress){resetAnimation(16);}
         
 
     }
