@@ -39,7 +39,7 @@ public class PersonController : MonoBehaviour {
         horizontal = Input.GetAxis("Horizontal") * movementSpeed; // A, D
 
         if (Input.GetKey(KeyCode.LeftShift)) {
-            movementSpeed = 2.2f;
+            movementSpeed = 5.0f;
         } else {
             movementSpeed = 1.5f;
         }
